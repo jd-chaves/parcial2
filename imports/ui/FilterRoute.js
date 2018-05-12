@@ -24,6 +24,8 @@ export default class FilterRoute extends Component{
 
 		return (rutas!==null)?(
 			<div>
+
+				<h1>Buscar Ruta</h1>
 				<select id="rutas_opt">
 					     {rutas.map((a)=><option value={a.tag}>{a.title}</option>)}
 				</select>

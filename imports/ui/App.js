@@ -3,6 +3,7 @@ import Visual from './Visual.js';
 import Filter from './Filter.js';
 import FilterRoute from './FilterRoute.js';
 import { History } from '../api/history.js';
+import { Comments } from '../api/comments.js';
 import { Meteor } from 'meteor/meteor';
 
 import { withTracker } from 'meteor/react-meteor-data';
@@ -10,6 +11,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 
 import Historial from './Historial.js';
+import Comentarios from './Comentarios.js';
 // App component - represents the whole app
 
 class App extends Component {
@@ -31,6 +33,7 @@ this.state = {
 this.manejarSubmitTag = this.manejarSubmitTag.bind(this);
 this.manejarSubmitRuta = this.manejarSubmitRuta.bind(this);
 this.manejarSubmitHistorial = this.manejarSubmitHistorial.bind(this);
+this.manejarSubmitComentarios = this.manejarSubmitComentarios.bind(this);
 this.home = this.home. bind(this);
 }
 
@@ -123,19 +126,37 @@ manejarSubmitHistorial(the_tag, the_tag_name, the_route, the_route_name)
 	});
 }
 
+manejarSubmitComentarios(str)
+{
+
+    Meteor.call('comments.insert', str, this.state.tag, this.state.tag_name, this.state.route, this.state.route_name);
+
+}
+
 render() {
 
 	if(!this.props.currentUser)
 					return(<AccountsUIWrapper />);
 
 	if((this.state.buses!==null&&this.state.selectedRoute!==null))
+	{
+		console.log("props");
+		console.log(this.state.tag);
+
+		console.log(this.state.route);
+		console.log(this.props.comentarios);
+		var comentarios = this.props.comentarios.filter((c)=>(c.agency === this.state.tag&&this.state.route === c.route));
+		console.log("filter");
+		console.log(comentarios);
 					return (
 								<div className="container">
 								<AccountsUIWrapper />
 										<Visual buses={this.state.buses} selectedRoute={this.state.selectedRoute} home={this.home} />
-																					
+										<Comentarios manejarSubmitComentario={this.manejarSubmitComentarios} comentarios={comentarios} route_name={this.state.route_name} tag_name={this.state.tag_name} tag={this.state.tag} route={this.state.route}/>
 									</div>
-);
+    );
+
+	}
 
 	else if(this.state.tag===null)
 					return (
@@ -167,6 +188,7 @@ export default withTracker(() => {
 
   return {
     history: History.find({}, { sort: { createdAt: -1 } }).fetch(),
+    comentarios: Comments.find({}, { sort: { createdAt: -1 } }).fetch(),
     currentUser: Meteor.user(),
   };
 })(App);

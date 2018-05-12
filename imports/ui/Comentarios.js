@@ -1,0 +1,37 @@
+import React, {Component} from "react";
+import { Comments } from '../api/comments.js'
+
+
+export default class Comentarios extends Component{
+
+	constructor(props)
+	{
+		super(props);
+		this.manejarSubmit = this.manejarSubmit.bind(this);
+	}
+
+	manejarSubmit()
+	{
+		var e = document.getElementById("comentario");
+		var strUser = e.value;
+		this.props.manejarSubmitComentario(strUser);
+
+	}
+	render()
+	{
+		temp = this.props.comentarios;
+		console.log(temp);
+		return(<div>
+					<ul>
+							{temp.map((c)=><li>
+									<h3>User: {c.username}</h3>
+									<p>{c.text}</p>
+								</li>)}
+					</ul>
+			 <textarea id="comentario" rows="10" cols="40" placeholder="Escribe aqui tus comentarios"></textarea>
+
+			<button className="btn btn-info" type="button" onClick={this.manejarSubmit}>Comentar</button>
+			</div>);
+	}
+
+} 

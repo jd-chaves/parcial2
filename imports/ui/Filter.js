@@ -29,6 +29,9 @@ export default class Filter extends Component{
 
 		return (
 			<div>
+
+			
+				<h1>Buscar Agencia</h1>
 				<select id="agencies_opt">
 					{agencias.map((a)=>a.tag==="sf-muni"?<option value={a.tag} selected="selected">{a.title}</option>:<option value={a.tag}>{a.title}</option>)}
 				</select>
