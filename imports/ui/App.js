@@ -163,6 +163,7 @@ render() {
 							<div>
 							<AccountsUIWrapper />
 									<Filter manejarSubmitTag={this.manejarSubmitTag} home={this.home}/>
+									<h3>Historial</h3>
 									<Historial history={this.props.history}   manejarSubmitHistorial={this.manejarSubmitHistorial}/>
 							</div>
 
@@ -173,6 +174,8 @@ render() {
 							<div>
 							<AccountsUIWrapper />
 									<FilterRoute rutas={this.state.rutas} manejarSubmitRoute={this.manejarSubmitRuta} home={this.home}/>
+																		<h3>Historial</h3>
+
 									<Historial history={this.props.history}   manejarSubmitHistorial={this.manejarSubmitHistorial}/>
 							</div>
 

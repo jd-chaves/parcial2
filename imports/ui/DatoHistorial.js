@@ -29,7 +29,7 @@ export default class DatoHistorial extends Component{
 	render()
 	{
 		return(<div>
-			<p><strong>Agency:</strong> {this.props.dato.agency_name}.      <strong>Route:</strong> {this.props.dato.route_name}</p>
+			<p><strong>Agencia:</strong> {this.props.dato.agency_name}.      <strong>Ruta:</strong> {this.props.dato.route_name}</p>
 			<button className="btn btn-info" type="button" onClick={this.manejarSubmit}>Go</button>
 		</div>);
 				
