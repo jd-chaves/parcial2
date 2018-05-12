@@ -15,11 +15,11 @@ Creado con Meteor-React-D3
 
 ## Tecnologias
 
-En este proyecto se utilizó el conjunto MERN para crear aplicaciones web dinámicas y persistentes:
+En este proyecto se utilizó :
   - MongoDB
   - React
   - Meteor
-  -D3
+  - D3
 
 ## Autor
  
