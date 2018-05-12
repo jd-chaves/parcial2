@@ -24,3 +24,13 @@ En este proyecto se utilizó :
 ## Autor
  
   - [Juan Diego Chaves](https://github.com/jd-chaves)
+
+
+License
+----
+
+MIT
+
+
+**Free Software, This project is licensed under the terms of the MIT license.**
+Detalles en [LICENSE](https://raw.githubusercontent.com/jd-chaves/parcialprimis/master/LICENSE)
