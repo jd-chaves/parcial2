@@ -23,14 +23,14 @@ export default class FilterRoute extends Component{
 	{
 	    rutas = this.props.rutas;
 
-		return (
+		return (rutas!==null)?(
 			<div>
 				<select id="rutas_opt">
 					     {rutas.map((a)=><option value={a.tag}>{a.title}</option>)}
 				</select>
-				<button className="btn btn-info" type="button" onClick={this.manjearSubmit}>Buscar</button>
+				<button className="btn btn-info" type="button" onClick={this.manejarSubmit}>Buscar</button>
 			</div>
-		)
+		):<div></div>;
 				
 	}
 

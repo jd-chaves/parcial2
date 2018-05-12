@@ -15,25 +15,28 @@ this.state = {
 	selectedRoute: null,
 	tag: null,
 	route: null,
-	rutas: null
+	rutas: null,
+	flag: false
 }
 this.manejarSubmitTag = this.manejarSubmitTag.bind(this);
 this.manejarSubmitRuta = this.manejarSubmitRuta.bind(this);
 }
 
-componentDidMount()
+componentDidUpdate()
 {
-	if(this.state.tag!==null&&this.state.route!==null)
+	console.log("lalalaaaaa");
+	console.log(this.state);
+	if(this.state.tag!==null&&this.state.route!==null&&!this.state.flag)
 	{
+		console.log("fetch no impora");
 		var the_tag =this.state.tag;
 		var the_route = this.state.route;
-	fetch("https://gist.githubusercontent.com/john-guerra/6a1716d792a20b029392501a5448479b/raw/e0cf741c90a756adeec848f245ec539e0d0cd629/sfNSchedule")
+	fetch(`http://webservices.nextbus.com/service/publicJSONFeed?command=schedule&a=${the_tag}&r=${the_route}`)
 			.then(data => data.json())
 			.then(json => this.getData(json));
 	}
-	else if(this.state.tag!==null)
+	else if(this.state.tag!==null&&this.state.rutas==null)
 	{
-
 		var the_tag =this.state.tag;
 		fetch(`http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=${the_tag}`)
 			.then(data => data.json())
@@ -59,7 +62,8 @@ getData(busSchedule)
 	}
 	this.setState({
 		buses,
-		selectedRoute
+		selectedRoute,
+		flag:true
 	});
 }
 manejarSubmitTag(str)
@@ -78,7 +82,6 @@ manejarSubmitRuta(str)
 
 render() {
 
-	console.log(this.state);
 	if((this.state.buses!==null&&this.state.selectedRoute!==null))
 					return (
 								<div className="container">
@@ -94,7 +97,7 @@ render() {
 	else if(this.state.tag===null)
 					return (
 							<div>
-									<Filter manejarSubmit={this.manejarSubmitTag}/>
+									<Filter manejarSubmitTag={this.manejarSubmitTag}/>
 							</div>
 
 					);
@@ -102,7 +105,7 @@ render() {
 	else if(this.state.tag!==null)
 					return (
 							<div>
-									<FilterRoute rutas={this.state.rutas} manejarSubmit={this.manejarSubmitRuta}/>
+									<FilterRoute rutas={this.state.rutas} manejarSubmitRoute={this.manejarSubmitRuta}/>
 							</div>
 
 					);
