@@ -3,7 +3,7 @@ import { Mongo } from 'meteor/mongo';
 export const History = new Mongo.Collection('history');
 
 Meteor.methods({
-'history.insert'(agency, route) {
+'history.insert'(agency, agency_name, route, route_name) {
 
     check(agency, String);
     check(route, String);
@@ -15,7 +15,9 @@ Meteor.methods({
  
     History.insert({
       agency,
+      agency_name,
       route, 
+      route_name,
       createdAt: new Date(),
       owner: this.userId,
       username: Meteor.users.findOne(this.userId).username,

@@ -8,6 +8,8 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import AccountsUIWrapper from './AccountsUIWrapper.js';
+
+import Historial from './Historial.js';
 // App component - represents the whole app
 
 class App extends Component {
@@ -20,12 +22,15 @@ this.state = {
 	buses:null,
 	selectedRoute: null,
 	tag: null,
+	tag_name: null,
 	route: null,
+	route_name:null,
 	rutas: null,
 	flag: false
 }
 this.manejarSubmitTag = this.manejarSubmitTag.bind(this);
 this.manejarSubmitRuta = this.manejarSubmitRuta.bind(this);
+this.manejarSubmitHistorial = this.manejarSubmitHistorial.bind(this);
 this.home = this.home. bind(this);
 }
 
@@ -70,17 +75,21 @@ getData(busSchedule)
 		flag:true
 	});
 }
-manejarSubmitTag(str)
+manejarSubmitTag(str, the_tag_name)
 {
-	this.setState({tag: str});
+	this.setState({tag: str,
+					tag_name: the_tag_name});
 }
 
 
-manejarSubmitRuta(str)
+manejarSubmitRuta(str, the_route_name)
 {
-	this.setState({route:str});
+	this.setState({route:str,
+					route_name: the_route_name, 
+
+	});
 	console.log("va a hacer el call");
-    Meteor.call('history.insert', this.state.tag,str);
+    Meteor.call('history.insert', this.state.tag, this.state.tag_name, str, the_route_name);
 
 }
 
@@ -90,12 +99,29 @@ home()
 	buses:null,
 	selectedRoute: null,
 	tag: null,
+	tag_name: null,
 	route: null,
+	route_name:null,
 	rutas: null,
 	flag: false
 	})
 }
 
+
+manejarSubmitHistorial(the_tag, the_tag_name, the_route, the_route_name)
+{
+
+	this.setState({
+
+	tag: the_tag,
+	tag_name: the_tag_name,
+	route: the_route,
+	route_name:the_route_name,
+	rutas: [],
+	flag: false
+
+	});
+}
 
 render() {
 
@@ -116,6 +142,7 @@ render() {
 							<div>
 							<AccountsUIWrapper />
 									<Filter manejarSubmitTag={this.manejarSubmitTag} home={this.home}/>
+									<Historial history={this.props.history}   manejarSubmitHistorial={this.manejarSubmitHistorial}/>
 							</div>
 
 					);
@@ -125,6 +152,7 @@ render() {
 							<div>
 							<AccountsUIWrapper />
 									<FilterRoute rutas={this.state.rutas} manejarSubmitRoute={this.manejarSubmitRuta} home={this.home}/>
+									<Historial history={this.props.history}   manejarSubmitHistorial={this.manejarSubmitHistorial}/>
 							</div>
 
 					);

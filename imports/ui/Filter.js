@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import * as d3 from "d3";
+
 
 export default class Filter extends Component{
 
@@ -15,8 +15,8 @@ export default class Filter extends Component{
 		var e = document.getElementById("agencies_opt");
 		var strUser = e.options[e.selectedIndex].value;
 
-		console.log(strUser);
-		this.props.manejarSubmitTag(strUser);
+		var strUser1 = e.options[e.selectedIndex].text;
+		this.props.manejarSubmitTag(strUser, strUser1);
 	}
 
 

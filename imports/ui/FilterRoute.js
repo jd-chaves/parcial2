@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import * as d3 from "d3";
+
 
 export default class FilterRoute extends Component{
 
@@ -14,9 +14,8 @@ export default class FilterRoute extends Component{
 	{
 		var e = document.getElementById("rutas_opt");
 		var strUser = e.options[e.selectedIndex].value;
-
-		console.log(strUser);
-		this.props.manejarSubmitRoute(strUser);
+		var strUser1 = e.options[e.selectedIndex].text;
+		this.props.manejarSubmitRoute(strUser, strUser1);
 	}
 
 	render()
