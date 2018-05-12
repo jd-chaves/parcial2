@@ -1,37 +1,15 @@
 import React, {Component} from "react";
+import * as d3 from "d3";
+import Filter from './Filter.js';
 
 export default class Visual extends Component{
-	constructor()
-	{
-		super(props);
-		this.state {
-			buses: [];
-		};
-	}
 
-	getData()
-	{
-		fetch("http://webservices.nextbus.com/service/publicJSONFeed?command=schedule&a=sf-muni&r=N")
-						.then((data)=>data.json())
-						.then(json => {
-							let los_buses = [];
-							selectedRoute = json.route[0];
-  							for (let bus of selectedRoute.tr) { 
-   								 let route = bus.stop.filter((d) => d.content!=="--");
-   								route.forEach((d) => d.date = new Date(+d.epochTime));    
-    							los_buses.push(route);
-  							}
-
-							this.setState({
-								buses: los_buses;
-							});
-		});
-
-	}
-
-
-	ComponentDidMount()
-	{
+	componentDidMount()
+	{		
+		const buses = this.props.buses;
+		const selectedRoute = this.props.selectedRoute;
+		const width = 1000;
+		const height = 1000;
 		  const svg = d3.select(this.svg);
 		  const margin = ({top: 20, right: 30, bottom: 30, left: 150});
 		  const minDate = d3.min(buses[1], d => d.date);
@@ -72,19 +50,19 @@ export default class Visual extends Component{
 		      .attr("stroke-linejoin", "round")
 		      .attr("stroke-linecap", "round")
 		      .attr("d", line);
-		  return svg.node(); 
+
 	}
 
 	render()
 	{
 		return(
 				<div className="visual">
-
-					<svg> 
-						width="800"
-						height="500"
-						ref = {(svg) => this.svg = svg} 
+					<svg 
+						width="1000"
+						height="1000"
+						ref={(svg) => this.svg = svg} >
 					</svg>
+					<Filter />
 				</div>
 
 			) 
