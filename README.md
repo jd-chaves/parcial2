@@ -33,4 +33,4 @@ MIT
 
 
 **Free Software, This project is licensed under the terms of the MIT license.**
-Detalles en [LICENSE](https://raw.githubusercontent.com/jd-chaves/parcialprimis/master/LICENSE)
+Detalles en [LICENSE](https://raw.githubusercontent.com/jd-chaves/parcial2/master/LICENSE)
