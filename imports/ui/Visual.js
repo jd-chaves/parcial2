@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import * as d3 from "d3";
-import Filter from './Filter.js';
+
 
 export default class Visual extends Component{
 
@@ -62,7 +62,7 @@ export default class Visual extends Component{
 						height="1000"
 						ref={(svg) => this.svg = svg} >
 					</svg>
-					<Filter />
+					
 				</div>
 
 			) 
