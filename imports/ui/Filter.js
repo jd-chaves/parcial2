@@ -33,6 +33,8 @@ export default class Filter extends Component{
 					{agencias.map((a)=>a.tag==="sf-muni"?<option value={a.tag} selected="selected">{a.title}</option>:<option value={a.tag}>{a.title}</option>)}
 				</select>
 				<button className="btn btn-info" type="button" onClick={this.manejarSubmit}>Buscar</button>
+
+				<button className="btn btn-info" type="button" onClick={this.props.home}>Home</button>
 			</div>
 		)
 				

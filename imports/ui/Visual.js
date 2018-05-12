@@ -8,8 +8,8 @@ export default class Visual extends Component{
 	{		
 		const buses = this.props.buses;
 		const selectedRoute = this.props.selectedRoute;
-		const width = 1000;
-		const height = 1000;
+		const width = 700;
+		const height = 700;
 		  const svg = d3.select(this.svg);
 		  const margin = ({top: 20, right: 30, bottom: 30, left: 150});
 		  const minDate = d3.min(buses[1], d => d.date);
@@ -58,10 +58,12 @@ export default class Visual extends Component{
 		return(
 				<div className="visual">
 					<svg 
-						width="1000"
-						height="1000"
+						width="700"
+						height="700"
 						ref={(svg) => this.svg = svg} >
 					</svg>
+
+				<button className="btn btn-info" type="button" onClick={this.props.home}>Home</button>
 				</div>
 
 			) 

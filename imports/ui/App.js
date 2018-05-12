@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import Visual from './Visual.js';
 import Filter from './Filter.js';
 import FilterRoute from './FilterRoute.js';
+import { History } from '../api/history.js';
+import { Meteor } from 'meteor/meteor';
+
+import { withTracker } from 'meteor/react-meteor-data';
+
+import AccountsUIWrapper from './AccountsUIWrapper.js';
 // App component - represents the whole app
 
-export default class App extends Component {
+class App extends Component {
 
 	constructor(props)
 {
@@ -20,15 +26,13 @@ this.state = {
 }
 this.manejarSubmitTag = this.manejarSubmitTag.bind(this);
 this.manejarSubmitRuta = this.manejarSubmitRuta.bind(this);
+this.home = this.home. bind(this);
 }
 
 componentDidUpdate()
-{
-	console.log("lalalaaaaa");
-	console.log(this.state);
+{	
 	if(this.state.tag!==null&&this.state.route!==null&&!this.state.flag)
 	{
-		console.log("fetch no impora");
 		var the_tag =this.state.tag;
 		var the_route = this.state.route;
 	fetch(`http://webservices.nextbus.com/service/publicJSONFeed?command=schedule&a=${the_tag}&r=${the_route}`)
@@ -75,29 +79,43 @@ manejarSubmitTag(str)
 manejarSubmitRuta(str)
 {
 	this.setState({route:str});
+	console.log("va a hacer el call");
+    Meteor.call('history.insert', this.state.tag,str);
+
 }
 
-
+home()
+{
+	this.setState({
+	buses:null,
+	selectedRoute: null,
+	tag: null,
+	route: null,
+	rutas: null,
+	flag: false
+	})
+}
 
 
 render() {
 
+	if(!this.props.currentUser)
+					return(<AccountsUIWrapper />);
+
 	if((this.state.buses!==null&&this.state.selectedRoute!==null))
 					return (
 								<div className="container">
-
-										<Visual buses={this.state.buses} selectedRoute={this.state.selectedRoute} />
-										
-											
+								<AccountsUIWrapper />
+										<Visual buses={this.state.buses} selectedRoute={this.state.selectedRoute} home={this.home} />
+																					
 									</div>
 );
-
-
 
 	else if(this.state.tag===null)
 					return (
 							<div>
-									<Filter manejarSubmitTag={this.manejarSubmitTag}/>
+							<AccountsUIWrapper />
+									<Filter manejarSubmitTag={this.manejarSubmitTag} home={this.home}/>
 							</div>
 
 					);
@@ -105,7 +123,8 @@ render() {
 	else if(this.state.tag!==null)
 					return (
 							<div>
-									<FilterRoute rutas={this.state.rutas} manejarSubmitRoute={this.manejarSubmitRuta}/>
+							<AccountsUIWrapper />
+									<FilterRoute rutas={this.state.rutas} manejarSubmitRoute={this.manejarSubmitRuta} home={this.home}/>
 							</div>
 
 					);
@@ -115,3 +134,11 @@ return (<div></div>);
 }
 }
 
+export default withTracker(() => {
+  Meteor.subscribe('history');
+
+  return {
+    history: History.find({}, { sort: { createdAt: -1 } }).fetch(),
+    currentUser: Meteor.user(),
+  };
+})(App);
