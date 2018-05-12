@@ -62,7 +62,6 @@ export default class Visual extends Component{
 						height="1000"
 						ref={(svg) => this.svg = svg} >
 					</svg>
-					
 				</div>
 
 			) 
