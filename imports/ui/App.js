@@ -64,7 +64,8 @@ getDataRutas(agencia)
 }
 
 getData(busSchedule)
-{
+{	
+
 	let selectedRoute = busSchedule.route[0];
 	let buses = [];
 	for (let bus of selectedRoute.tr) { 
@@ -136,7 +137,10 @@ manejarSubmitComentarios(str)
 render() {
 
 	if(!this.props.currentUser)
-					return(<AccountsUIWrapper />);
+					return(<div><AccountsUIWrapper />
+
+							<h1>Parcial 2 Web-Dev (Usando NextBus API). Login arriba a la izquierda para explorar</h1>
+						</div>);
 
 	if((this.state.buses!==null&&this.state.selectedRoute!==null))
 	{

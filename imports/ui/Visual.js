@@ -62,8 +62,13 @@ export default class Visual extends Component{
 						height="700"
 						ref={(svg) => this.svg = svg} >
 					</svg>
-
+				<br/>
+				<br/>
+				<br/>
 				<button className="btn btn-info" type="button" onClick={this.props.home}>Home</button>
+				<br/>
+				<br/>
+				<br/>
 				</div>
 
 			) 

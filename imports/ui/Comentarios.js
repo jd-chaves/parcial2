@@ -22,15 +22,21 @@ export default class Comentarios extends Component{
 		temp = this.props.comentarios;
 		console.log(temp);
 		return(<div>
+			<h1>Comentarios</h1>
+			<textarea id="comentario" rows="3" cols="90" placeholder="Escribe aqui tus comentarios"></textarea>
+			<br/>
+			<br/>
+			<button className="btn btn-info" type="button" onClick={this.manejarSubmit}>Comentar</button>
+			<br/>
+			<br/>
 					<ul>
 							{temp.map((c)=><li>
-									<h3>User: {c.username}</h3>
+									<h6>User: {c.username}</h6>
 									<p>{c.text}</p>
 								</li>)}
 					</ul>
-			 <textarea id="comentario" rows="10" cols="40" placeholder="Escribe aqui tus comentarios"></textarea>
+			 
 
-			<button className="btn btn-info" type="button" onClick={this.manejarSubmit}>Comentar</button>
 			</div>);
 	}
 
