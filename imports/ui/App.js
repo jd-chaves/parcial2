@@ -23,19 +23,28 @@ this.manejarSubmitRuta = this.manejarSubmitRuta.bind(this);
 
 componentDidMount()
 {
-	
+	if(this.state.tag!==null&&this.state.route!==null)
+	{
+		var the_tag =this.state.tag;
+		var the_route = this.state.route;
 	fetch("https://gist.githubusercontent.com/john-guerra/6a1716d792a20b029392501a5448479b/raw/e0cf741c90a756adeec848f245ec539e0d0cd629/sfNSchedule")
 			.then(data => data.json())
 			.then(json => this.getData(json));
-	
+	}
+	else if(this.state.tag!==null)
+	{
 
-	
+		var the_tag =this.state.tag;
+		fetch(`http://webservices.nextbus.com/service/publicJSONFeed?command=routeList&a=${the_tag}`)
+			.then(data => data.json())
+			.then(json => this.getDataRutas(json));
+		
+	}	
 }
 
 
 getDataRutas(agencia)
 {
-
 	this.setState({rutas: agencia.route});
 }
 
@@ -64,7 +73,12 @@ manejarSubmitRuta(str)
 	this.setState({route:str});
 }
 
+
+
+
 render() {
+
+	console.log(this.state);
 	if((this.state.buses!==null&&this.state.selectedRoute!==null))
 					return (
 								<div className="container">
@@ -74,6 +88,8 @@ render() {
 											
 									</div>
 );
+
+
 
 	else if(this.state.tag===null)
 					return (
@@ -86,7 +102,7 @@ render() {
 	else if(this.state.tag!==null)
 					return (
 							<div>
-									<FilterRoute manejarSubmit={this.manejarSubmitRuta}/>
+									<FilterRoute rutas={this.state.rutas} manejarSubmit={this.manejarSubmitRuta}/>
 							</div>
 
 					);
